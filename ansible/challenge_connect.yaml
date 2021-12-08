@@ -1,0 +1,27 @@
+---
+- name: LOOP CREATION OF LOOPBACK INTERFACES
+  hosts: R1
+  gather_facts: false
+  connection: network_cli
+
+
+
+ 
+ 
+  tasks:
+    - name: INT CREATION
+      ios_config:
+        parents: loopback'{{item.interface}}'
+        lines:
+          - ip address '{{item.address}}'
+      loop: 
+      - {interface: "0", address: 10.0.0.1 255.255.255.0}
+      - {interface: "1", address: 10.1.0.1 255.255.255.0}
+	    - {interface: "2", address: 10.2.0.1 255.255.255.0}
+	    - {interface: "3", address: 10.3.0.1 255.255.255.0}
+	    - {interface: "4", address: 10.4.0.1 255.255.255.0}
+	    - {interface: "5", address: 10.5.0.1 255.255.255.0} 
+	    
+
+
+    - debug: var=output.stdout_lines
